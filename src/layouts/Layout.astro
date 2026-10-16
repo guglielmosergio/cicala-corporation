@@ -96,12 +96,12 @@ const orgSchema = {
   <body class="bg-black">
 
     <!-- HEADER: pointer-events-none così la barra invisibile non blocca i click sotto di essa -->
-    <header class="fixed top-0 w-full z-50 px-4 md:px-6 pt-0 pb-2 flex justify-between items-start pointer-events-none mix-blend-screen">
+    <header class="fixed top-0 w-full z-50 px-4 md:px-6 pt-0 pb-2 flex justify-between items-center pointer-events-none mix-blend-screen">
       <a href="/" class="shrink-0 pointer-events-auto">
         <img
           src={logo.src}
           alt="Cicala Corporation"
-          class="h-32 w-auto max-w-[70vw] object-contain md:h-60 md:max-w-none -mt-3 md:-mt-10"
+          class="h-44 w-auto max-w-[78vw] object-contain md:h-60 md:max-w-none -mt-4 md:-mt-10"
         />
       </a>
 
@@ -125,7 +125,7 @@ const orgSchema = {
       <button
         id="menu-btn"
         type="button"
-        class="md:hidden relative w-11 h-11 mt-3 flex items-center justify-center pointer-events-auto"
+        class="md:hidden relative w-11 h-11 -mt-4 flex items-center justify-center pointer-events-auto"
         aria-label="Apri il menu"
         aria-expanded="false"
         aria-controls="mobile-menu"
