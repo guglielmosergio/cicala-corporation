@@ -1,0 +1,346 @@
+---
+// src/layouts/Layout.astro
+import '../styles/global.css'
+import logo from '../assets/cicala-logo.png';
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/videos', label: 'Videos' },
+];
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="view-transitions" content="same-origin">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cicala Corporation: Digital Cinema Studio</title>
+    <meta name="description" content="Production and Distribution Company based in Perugia, Rome and Bari, soon in Geneve." />
+  </head>
+  <body class="bg-black">
+
+    <!-- HEADER: pointer-events-none così la barra invisibile non blocca i click sotto di essa -->
+    <header class="fixed top-0 w-full z-50 p-4 md:p-6 flex justify-between items-center pointer-events-none mix-blend-screen">
+      <a href="/" class="shrink-0 pointer-events-auto">
+        <img
+          src={logo.src}
+          alt="Cicala Corporation"
+          class="h-32 w-auto max-w-[70vw] object-contain md:h-60 md:max-w-none"
+        />
+      </a>
+
+      <!-- Menu desktop -->
+      <nav class="hidden md:block pointer-events-auto">
+        <ul class="flex space-x-4">
+          {links.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                class="text-white font-['Helvetica'] font-bold uppercase text-sm hover:opacity-70 transition-opacity"
+              >
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Pulsante hamburger (solo mobile) -->
+      <button
+        id="menu-btn"
+        type="button"
+        class="md:hidden relative w-11 h-11 flex items-center justify-center pointer-events-auto"
+        aria-label="Apri il menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span class="burger-line" data-line="1"></span>
+        <span class="burger-line" data-line="2"></span>
+      </button>
+    </header>
+
+    <!-- Menu mobile a tendina -->
+    <div id="mobile-menu" class="mobile-menu md:hidden" aria-hidden="true">
+      <nav class="w-full px-8">
+        <ul class="flex flex-col">
+          {links.map((l, i) => {
+            const active = path === l.href;
+            return (
+              <li class="menu-item" style={`--i:${i}`}>
+                <a
+                  href={l.href}
+                  class:list={['menu-link', { 'is-active': active }]}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  <span class="menu-dot"></span>
+                  <span class="menu-label">{l.label}</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+
+      <a
+        href="mailto:cicalacorporation@gmail.com"
+        class="menu-item menu-mail"
+        style="--i:5"
+      >
+        cicalacorporation@gmail.com
+      </a>
+    </div>
+
+    <main>
+      <slot />
+    </main>
+
+    <!-- INIZIO FOOTER / FILIGRANA CONTATTI -->
+    <footer class="site-footer w-full bg-black pt-6 md:pt-8 pb-12 flex flex-col items-center justify-center relative z-0 mt-auto font-['Helvetica']">
+
+      <!-- Email -->
+      <a
+        href="mailto:cicalacorporation@gmail.com"
+        class="text-white font-bold text-2xl md:text-3xl tracking-tight hover:text-neutral-300 transition-colors mb-2"
+      >
+        cicalacorporation@gmail.com
+      </a>
+
+      <!-- Numero di Telefono -->
+      <a
+        href="tel:+393474579349"
+        class="text-[#cc0000] font-bold text-2xl md:text-3xl tracking-tight hover:brightness-125 transition-all mb-6"
+      >
+        +393474579349
+      </a>
+
+      <!-- Icone Social -->
+      <div class="flex items-center gap-5 md:gap-6 mb-10">
+
+        <!-- WhatsApp -->
+        <a
+          href="https://wa.me/393474579349"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center hover:scale-110 transition-transform duration-200 cursor-pointer"
+          aria-label="WhatsApp"
+        >
+          <svg viewBox="0 0 24 24" fill="#25D366" class="w-8 h-8">
+            <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.94 9.94 0 0 0 1.333 4.993L2 22l5.233-1.237a9.95 9.95 0 0 0 4.779 1.221h.004c5.505 0 9.988-4.478 9.989-9.984 0-2.664-1.037-5.168-2.924-7.056A9.91 9.91 0 0 0 12.012 2zm0 18.232h-.003a8.27 8.27 0 0 1-4.218-1.162l-.302-.18-3.13.74.808-3.044-.197-.314A8.25 8.25 0 0 1 3.763 11.984c0-4.549 3.702-8.25 8.252-8.25 2.204 0 4.276.859 5.834 2.419a8.203 8.203 0 0 1 2.414 5.835c-.001 4.55-3.702 8.244-8.251 8.244zm4.52-6.18c-.248-.124-1.468-.724-1.696-.807-.228-.083-.393-.124-.559.124-.165.248-.64.807-.785.973-.145.165-.289.186-.537.062-.248-.124-1.047-.386-1.995-1.231-.738-.658-1.237-1.47-1.382-1.718-.145-.248-.015-.382.109-.505.111-.111.248-.289.372-.434.124-.145.165-.248.248-.413.083-.165.041-.31-.021-.434-.062-.124-.559-1.348-.765-1.844-.201-.484-.405-.418-.559-.426l-.476-.008c-.165 0-.434.062-.661.31-.227.248-.868.848-.868 2.068 0 1.22.889 2.399 1.013 2.564.124.165 1.748 2.67 4.236 3.744.592.256 1.054.409 1.414.523.594.189 1.134.162 1.561.098.476-.071 1.468-.6 1.674-1.18.206-.579.206-1.075.145-1.18-.062-.104-.227-.165-.475-.289z"/>
+          </svg>
+        </a>
+
+        <!-- YouTube -->
+        <a
+          href="https://www.youtube.com/@cicalacorporation"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center hover:scale-110 transition-transform duration-200 cursor-pointer"
+          aria-label="YouTube"
+        >
+          <svg viewBox="0 0 24 24" class="w-8 h-8">
+            <path
+              fill="#FF0000"
+              d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"
+            />
+            <path
+              fill="#FFFFFF"
+              d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+            />
+          </svg>
+        </a>
+
+        <!-- Vimeo -->
+        <a
+          href="https://vimeo.com/cicalacorporation"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center hover:scale-110 transition-transform duration-200 cursor-pointer"
+          aria-label="Vimeo"
+        >
+          <svg viewBox="0 0 24 24" fill="#1AB7EA" class="w-8 h-8" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 11.4C4.603 8.816 3.834 7.522 3.01 7.522c-.179 0-.806.378-1.881 1.132L0 7.197a315.065 315.065 0 0 0 3.501-3.123C5.08 2.701 6.266 1.984 7.055 1.91c1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.507.539 2.45 1.131 3.674 1.776 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.614-2.061-.574 0-1.167.121-1.777.391 1.186-3.868 3.434-5.757 6.762-5.637 2.473.06 3.628 1.664 3.493 4.797l-.013.01z"/>
+          </svg>
+        </a>
+
+        <!-- Instagram -->
+        <a
+          href="https://www.instagram.com/cicala_corporation"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center hover:scale-110 transition-transform duration-200 cursor-pointer"
+          aria-label="Instagram"
+        >
+          <svg viewBox="0 0 24 24" class="w-[27px] h-[27px]">
+            <defs>
+              <linearGradient id="ig-grad-final" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#FFDC80"/>
+                <stop offset="25%" stop-color="#FCAF45"/>
+                <stop offset="50%" stop-color="#F56040"/>
+                <stop offset="75%" stop-color="#E1306C"/>
+                <stop offset="100%" stop-color="#833AB4"/>
+              </linearGradient>
+            </defs>
+            <path
+              fill="url(#ig-grad-final)"
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
+            />
+          </svg>
+        </a>
+
+        <!-- TikTok -->
+        <a
+          href="https://www.tiktok.com/@cicalacorporation"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center hover:scale-110 transition-transform duration-200 cursor-pointer"
+          aria-label="TikTok"
+        >
+          <svg viewBox="0 0 24 24" fill="#FFFFFF" class="w-8 h-8">
+            <path
+              d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"
+            />
+          </svg>
+        </a>
+
+      </div>
+
+      <!-- Scritta finale -->
+      <p class="text-neutral-500 text-xs md:text-sm tracking-[0.2em] uppercase text-center px-4">
+        © 2026 Cicala Corporation
+      </p>
+
+    </footer>
+    <!-- FINE FOOTER / FILIGRANA CONTATTI -->
+
+    <style is:global>
+      /* ---------- Hamburger ---------- */
+      .burger-line {
+        position: absolute;
+        left: 50%;
+        width: 26px;
+        height: 2px;
+        background: #fff;
+        border-radius: 2px;
+        transform: translateX(-50%);
+        transition: transform 0.45s cubic-bezier(0.7, 0, 0.2, 1), width 0.3s ease;
+      }
+      .burger-line[data-line="1"] { top: 15px; }
+      .burger-line[data-line="2"] { top: 27px; width: 18px; }
+
+      #menu-btn[aria-expanded="true"] .burger-line[data-line="1"] {
+        transform: translateX(-50%) translateY(6px) rotate(45deg);
+      }
+      #menu-btn[aria-expanded="true"] .burger-line[data-line="2"] {
+        width: 26px;
+        transform: translateX(-50%) translateY(-6px) rotate(-45deg);
+      }
+
+      /* ---------- Pannello a tendina ---------- */
+      .mobile-menu {
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.96);
+        -webkit-backdrop-filter: blur(18px);
+        backdrop-filter: blur(18px);
+        font-family: 'Helvetica', Arial, sans-serif;
+        clip-path: inset(0 0 100% 0);
+        visibility: hidden;
+        transition: clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1), visibility 0s linear 0.7s;
+      }
+      .mobile-menu.is-open {
+        clip-path: inset(0 0 0 0);
+        visibility: visible;
+        transition: clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1), visibility 0s;
+      }
+
+      /* ---------- Voci con effetto cascata ---------- */
+      .menu-item {
+        opacity: 0;
+        transform: translateY(-24px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      .mobile-menu.is-open .menu-item {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        transition-delay: calc(0.25s + var(--i) * 0.08s);
+      }
+
+      .menu-link {
+        display: flex;
+        align-items: baseline;
+        gap: 0.6rem;
+        padding: 0.95rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        color: #fff;
+        font-family: 'Helvetica', Arial, sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+        transition: color 0.25s ease, padding-left 0.25s ease;
+      }
+      .menu-link:active { padding-left: 0.5rem; opacity: 0.7; }
+
+      .menu-label { font-size: clamp(1.15rem, 5.2vw, 1.55rem) !important; line-height: 1; }
+
+      .menu-dot {
+        flex-shrink: 0;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.4);
+        transition: background 0.25s ease, transform 0.25s ease;
+      }
+      .menu-link.is-active .menu-label { color: #cc0000; }
+      .menu-link.is-active .menu-dot { background: #cc0000; transform: scale(1.3); }
+
+      .menu-mail {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      body.menu-open { overflow: hidden; }
+    </style>
+
+    <script is:inline>
+      function initMobileMenu() {
+        const btn = document.getElementById('menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        if (!btn || !menu || btn.dataset.init) return;
+        btn.dataset.init = 'true';
+
+        const setOpen = (open) => {
+          menu.classList.toggle('is-open', open);
+          btn.setAttribute('aria-expanded', String(open));
+          btn.setAttribute('aria-label', open ? 'Chiudi il menu' : 'Apri il menu');
+          menu.setAttribute('aria-hidden', String(!open));
+          document.body.classList.toggle('menu-open', open);
+        };
+
+        btn.addEventListener('click', () => setOpen(!menu.classList.contains('is-open')));
+        menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+        window.matchMedia('(min-width: 768px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+      }
+
+      initMobileMenu();
+      document.addEventListener('astro:page-load', initMobileMenu);
+    </script>
+
+  </body>
+</html>

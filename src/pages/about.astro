@@ -1,0 +1,394 @@
+---
+import Layout from '../layouts/Layout.astro';
+import fullLogo from '../assets/full-cicala-corporation.png';
+
+const langs = ['en', 'it', 'fr', 'es', 'ja'];
+
+const paragraphs = [
+  {
+    en: 'We operate as a vertically integrated production house driven by a dedicated team of professionals, each specialized in a key discipline of cinematic, technical, and artistic language. This streamlined structure allows us to maintain maximum agility and absolute quality control over every phase of the project, independently managing both on-set production and the entire post-production workflow.',
+    it: "Operiamo come una casa di produzione verticalmente integrata, guidata da un team dedicato di professionisti, ciascuno specializzato in una disciplina chiave del linguaggio cinematografico, tecnico e artistico. Questa struttura snella ci permette di mantenere la massima agilità e un controllo qualità assoluto su ogni fase del progetto, gestendo in modo indipendente sia la produzione sul set sia l'intero flusso di post-produzione.",
+    fr: "Nous fonctionnons comme une maison de production verticalement intégrée, portée par une équipe dédiée de professionnels, chacun spécialisé dans une discipline clé du langage cinématographique, technique et artistique. Cette structure agile nous permet de conserver une flexibilité maximale et un contrôle qualité absolu sur chaque phase du projet, en gérant de manière indépendante la production sur le plateau comme l'ensemble de la post-production.",
+    es: 'Operamos como una productora verticalmente integrada, impulsada por un equipo dedicado de profesionales, cada uno especializado en una disciplina clave del lenguaje cinematográfico, técnico y artístico. Esta estructura ágil nos permite mantener la máxima flexibilidad y un control de calidad absoluto en cada fase del proyecto, gestionando de forma independiente tanto la producción en el set como todo el flujo de posproducción.',
+    ja: '当社は垂直統合型の制作会社として、映画的・技術的・芸術的な表現の各分野を専門とするプロフェッショナルのチームで運営されています。この無駄のない体制により、最大限の機動力と、プロジェクトのあらゆる段階における徹底した品質管理を実現し、現場での制作からポストプロダクション全体まで、すべて自社で手掛けています。',
+  },
+  {
+    en: 'For projects requiring a broader production scale, we leverage an established network of top-tier industry talent and elite crew members, scaling the team to perfectly match the specific creative needs of the story. Beyond content creation, we strategically plan market positioning through the most effective distribution channels, steering the finished product primarily toward major streaming platforms, on-demand services, and premium digital online releases, while also targeting specialized circuits.',
+    it: "Per i progetti che richiedono una scala produttiva più ampia, ci avvaliamo di una consolidata rete di talenti di primo livello e di professionisti d'élite, adattando la squadra alle specifiche esigenze creative della storia. Oltre alla creazione dei contenuti, pianifichiamo strategicamente il posizionamento sul mercato attraverso i canali di distribuzione più efficaci, indirizzando il prodotto finito principalmente verso le grandi piattaforme di streaming, i servizi on demand e le uscite digitali premium, senza trascurare i circuiti specializzati.",
+    fr: "Pour les projets nécessitant une plus grande échelle de production, nous nous appuyons sur un réseau établi de talents de premier plan et de techniciens d'élite, en adaptant l'équipe aux besoins créatifs précis de l'histoire. Au-delà de la création de contenu, nous planifions stratégiquement le positionnement sur le marché à travers les canaux de distribution les plus efficaces, en orientant le produit fini principalement vers les grandes plateformes de streaming, les services de vidéo à la demande et les sorties numériques premium, tout en visant également des circuits spécialisés.",
+    es: 'Para los proyectos que requieren una mayor escala de producción, contamos con una red consolidada de talento de primer nivel y equipos de élite, adaptando el equipo a las necesidades creativas específicas de la historia. Más allá de la creación de contenido, planificamos estratégicamente el posicionamiento en el mercado a través de los canales de distribución más eficaces, dirigiendo el producto final principalmente hacia las grandes plataformas de streaming, los servicios bajo demanda y los estrenos digitales premium, sin descuidar los circuitos especializados.',
+    ja: 'より大規模な制作が必要なプロジェクトでは、業界トップクラスの人材とエリートクルーからなる確かなネットワークを活用し、物語に求められる創造的なニーズに合わせてチームを編成します。コンテンツ制作にとどまらず、最も効果的な配信チャネルを通じて市場でのポジショニングを戦略的に計画し、完成した作品を主要なストリーミングプラットフォーム、オンデマンドサービス、プレミアムなデジタル公開へと展開するとともに、専門的な上映の場も視野に入れています。',
+  },
+  {
+    en: 'Thanks to our complete technical and artistic self-sufficiency, we are fully capable of delivering a screen-ready product independently. Consequently, we actively welcome co-production proposals from strategic partners, investors, and brands. We offer a tangible contribution consisting of industry know-how, high-end cinema equipment, and in-house post-production suites to bring high-impact, international projects to life.',
+    it: 'Grazie alla nostra completa autosufficienza tecnica e artistica, siamo in grado di consegnare in autonomia un prodotto pronto per lo schermo. Di conseguenza, accogliamo attivamente proposte di co-produzione da partner strategici, investitori e brand. Offriamo un contributo concreto fatto di know-how, attrezzatura cinematografica di alto livello e suite di post-produzione interne per dare vita a progetti internazionali di grande impatto.',
+    fr: "Grâce à notre autonomie technique et artistique complète, nous sommes en mesure de livrer seuls un produit prêt pour l'écran. En conséquence, nous accueillons activement les propositions de coproduction de partenaires stratégiques, d'investisseurs et de marques. Nous apportons une contribution concrète composée de savoir-faire, de matériel de cinéma haut de gamme et de studios de post-production internes pour donner vie à des projets internationaux à fort impact.",
+    es: 'Gracias a nuestra completa autosuficiencia técnica y artística, somos capaces de entregar de forma independiente un producto listo para la pantalla. En consecuencia, acogemos activamente propuestas de coproducción de socios estratégicos, inversores y marcas. Ofrecemos una contribución tangible que incluye experiencia, equipamiento cinematográfico de gama alta y salas de posproducción propias para dar vida a proyectos internacionales de gran impacto.',
+    ja: '技術面・芸術面での完全な自給体制により、スクリーンにそのまま出せる作品を自社だけで納品することができます。そのため、戦略的パートナー、投資家、ブランドからの共同制作のご提案を積極的に歓迎します。業界で培ったノウハウ、ハイエンドのシネマ機材、社内のポストプロダクション設備を提供し、インパクトのある国際的なプロジェクトの実現を支えます。',
+  },
+];
+
+const team = [
+  {
+    name: 'Guglielmo Sergio',
+    photo: '/guglielmosergio.png',
+    links: {
+      youtube: 'https://www.youtube.com/@cicalacorporation',
+      instagram: 'https://www.instagram.com/guglielmo_sergio/',
+      vimeo: 'https://vimeo.com/cicalacorporation',
+      website: 'http://guglielmosergio.it',
+    },
+    bio: {
+      en: 'Filming and editing are the things that I first started with. I truly enjoy directing and I am fascinated by photography. Color grading is my brand new passion.',
+      it: 'Riprese e montaggio sono le prime cose con cui ho iniziato. Mi piace molto dirigere e sono affascinato dalla fotografia. Il color grading è la mia nuova passione.',
+      fr: "Le tournage et le montage sont les premières choses par lesquelles j'ai commencé. J'aime vraiment la mise en scène et la photographie me fascine. L'étalonnage est ma toute nouvelle passion.",
+      es: 'Filmar y editar son las primeras cosas con las que empecé. Disfruto mucho dirigiendo y me fascina la fotografía. El etalonaje es mi nueva pasión.',
+      ja: '撮影と編集は私が最初に取り組んだことです。演出がとても好きで、写真にも魅了されています。カラーグレーディングは最近夢中になっている分野です。',
+    },
+  },
+  {
+    name: 'Diletta Cappannini',
+    photo: '/dilettacappannini.png',
+    links: {
+      youtube: 'https://www.youtube.com/@dilettacappannini',
+      instagram: 'https://www.instagram.com/dilettacappannini',
+      facebook: 'https://www.facebook.com/diletta.cappannini/',
+      tiktok: 'https://www.tiktok.com/@dilettacappannini',
+    },
+    bio: {
+      en: "I act and write because they are my life's two most important fields. Directing actors interests me because I understand their needs on the set.",
+      it: 'Recito e scrivo perché sono i due ambiti più importanti della mia vita. La direzione degli attori mi interessa perché ne comprendo le esigenze sul set.',
+      fr: "Je joue et j'écris parce que ce sont les deux domaines les plus importants de ma vie. La direction d'acteurs m'intéresse parce que je comprends leurs besoins sur le plateau.",
+      es: 'Actúo y escribo porque son los dos ámbitos más importantes de mi vida. Dirigir actores me interesa porque entiendo sus necesidades en el set.',
+      ja: '演技と執筆は、私の人生で最も大切な二つの分野です。俳優の演出に関心があるのは、現場での俳優のニーズを理解しているからです。',
+    },
+  },
+  {
+    name: 'David Giorgetti',
+    photo: '/davidgiorgetti.png',
+    links: {
+      youtube: 'https://www.youtube.com/@lateg7035',
+      instagram: 'https://www.instagram.com/mcqueen_993/',
+      spotify: 'https://open.spotify.com/intl-it/artist/7Kb5mpPICkkse6fzxD6HxS',
+    },
+    bio: {
+      en: 'I compose soundtracks and electronic music, creating what imagery requires. I am drawn to the audio recording world.',
+      it: 'Compongo colonne sonore e musica elettronica, creando ciò che le immagini richiedono. Sono attratto dal mondo della registrazione audio.',
+      fr: "Je compose des bandes originales et de la musique électronique, en créant ce que l'image exige. Je suis attiré par l'univers de l'enregistrement audio.",
+      es: 'Compongo bandas sonoras y música electrónica, creando lo que la imagen requiere. Me atrae el mundo de la grabación de audio.',
+      ja: '映像が求めるものに合わせて、サウンドトラックやエレクトロニックミュージックを作曲しています。オーディオ録音の世界にも惹かれています。',
+    },
+  },
+  {
+    name: 'Nicola Cortellucci (di ENonTheRoad)',
+    photo: '/nicolacortellucci.png',
+    links: {
+      youtube: 'https://www.youtube.com/@enontheroad',
+      instagram: 'https://www.instagram.com/enontheroad/',
+      facebook: 'https://www.facebook.com/enontheroad/',
+      tiktok: 'https://www.tiktok.com/@enontheroad',
+      spotify: 'https://open.spotify.com/show/15NF5TZ1zs4GQ82uJr5cNM?si=dc09cf12e5ec4538',
+      website: 'https://www.enontheroad.com/',
+    },
+    bio: {
+      en: 'Since 2017 I fly stabilized and FPV drones, secure NFZ flight permits, and hold A1-A3, A2, and Specific STS 01/02 certificates.',
+      it: 'Dal 2017 piloto droni stabilizzati e FPV, ottengo i permessi di volo nelle zone vietate (NFZ) e possiedo gli attestati A1-A3, A2 e Specific STS 01/02.',
+      fr: "Depuis 2017, je pilote des drones stabilisés et FPV, j'obtiens des autorisations de vol en zones interdites (NFZ) et je détiens les certificats A1-A3, A2 et Specific STS 01/02.",
+      es: 'Desde 2017 piloto drones estabilizados y FPV, obtengo permisos de vuelo en zonas restringidas (NFZ) y cuento con los certificados A1-A3, A2 y Specific STS 01/02.',
+      ja: '2017年から安定化ドローンとFPVドローンを操縦し、飛行禁止区域（NFZ）での飛行許可を取得しています。A1-A3、A2、Specific STS 01/02の資格を保有しています。',
+    },
+  },
+];
+
+const flags = [
+  {
+    code: 'en', label: 'English',
+    svg: '<svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><clipPath id="fl-s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="fl-t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#fl-s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#fl-t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg>',
+  },
+  {
+    code: 'it', label: 'Italiano',
+    svg: '<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="2" fill="#009246"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#CE2B37"/></svg>',
+  },
+  {
+    code: 'fr', label: 'Français',
+    svg: '<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="2" fill="#0055A4"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#EF4135"/></svg>',
+  },
+  {
+    code: 'es', label: 'Español',
+    svg: '<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="2" fill="#AA151B"/><rect y="0.5" width="3" height="1" fill="#F1BF00"/></svg>',
+  },
+  {
+    code: 'ja', label: '日本語',
+    svg: '<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="2" fill="#fff"/><circle cx="1.5" cy="1" r="0.6" fill="#BC002D"/></svg>',
+  },
+];
+
+const icons = {
+  youtube: {
+    color: '#FF0000',
+    d: 'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z',
+  },
+  instagram: {
+    color: '#E1306C',
+    d: 'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z',
+  },
+  vimeo: {
+    color: '#1AB7EA',
+    d: 'M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 11.4C4.603 8.816 3.834 7.522 3.01 7.522c-.179 0-.806.378-1.881 1.132L0 7.197a315.065 315.065 0 0 0 3.501-3.123C5.08 2.701 6.266 1.984 7.055 1.91c1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.507.539 2.45 1.131 3.674 1.776 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.614-2.061-.574 0-1.167.121-1.777.391 1.186-3.868 3.434-5.757 6.762-5.637 2.473.06 3.628 1.664 3.493 4.797l-.013.01z',
+  },
+  facebook: {
+    color: '#1877F2',
+    d: 'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z',
+  },
+  tiktok: {
+    color: '#000000',
+    d: 'M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z',
+  },
+  spotify: {
+    color: '#1DB954',
+    d: 'M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z',
+  },
+  website: {
+    color: '#8B5CF6',
+    d: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z',
+  },
+};
+---
+
+<Layout>
+  <about-page data-active="en" class="block pt-24 md:pt-32 pb-0 text-white">
+
+    <!-- LOGO -->
+    <div class="flex justify-center px-6">
+      <img
+        src={fullLogo.src}
+        alt="Cicala Corporation"
+        class="w-56 md:w-96 h-auto"
+      />
+    </div>
+
+    <!-- BANDIERINE -->
+    <div class="flex items-center justify-center gap-3 mt-3 md:mt-5">
+      {flags.map((f, i) => (
+        <button
+          type="button"
+          class:list={['flag-btn', { 'is-active': i === 0 }]}
+          data-lang={f.code}
+          aria-label={f.label}
+          title={f.label}
+        >
+          <Fragment set:html={f.svg} />
+        </button>
+      ))}
+    </div>
+
+    <!-- TESTO -->
+    <div class="font-benguiat max-w-4xl mx-auto px-6 mt-4 md:mt-8 text-center space-y-8 md:space-y-10">
+      {paragraphs.map((p) => (
+        <p class="ml reveal text-[15px] md:text-lg leading-[1.9] md:leading-[2]">
+          {langs.map((l) => <span lang={l}>{p[l]}</span>)}
+        </p>
+      ))}
+    </div>
+
+    <!-- TEAM -->
+    <h2 class="font-['Helvetica'] font-bold text-center mt-20 md:mt-28 mb-10 tracking-wide text-2xl md:text-4xl">
+      The trusted ones
+    </h2>
+
+    <div class="max-w-7xl mx-auto md:px-10">
+      <div
+        id="team-track"
+        class="team-track flex gap-5 overflow-x-auto px-6 pb-0 scroll-px-6 hide-scrollbar md:grid md:grid-cols-4 md:gap-6 md:overflow-visible md:px-0"
+      >
+        {team.map((m, i) => (
+          <article
+            class="team-card reveal snap-start flex-none w-[78vw] max-w-[340px] md:w-auto md:max-w-none bg-white text-black rounded-sm overflow-hidden shadow-xl flex flex-col group font-['Helvetica']"
+            style={`--d:${i * 120}ms`}
+          >
+            <div class="aspect-[4/3] bg-neutral-300 overflow-hidden">
+              <img
+                src={m.photo}
+                alt={m.name}
+                class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105 select-none"
+                loading="lazy"
+                draggable="false"
+              />
+            </div>
+
+            <div class="p-6 md:p-7 flex flex-col flex-1">
+              <h3 class="font-bold text-lg md:text-xl leading-tight">{m.name}</h3>
+              <p class="ml text-sm leading-relaxed text-neutral-800 mt-3">
+                {langs.map((l) => <span lang={l}>{m.bio[l]}</span>)}
+              </p>
+
+              <div class="flex flex-wrap items-center gap-3 mt-auto pt-5">
+                {Object.entries(m.links).map(([key, url]) => (
+                  <a
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${m.name} - ${key}`}
+                    draggable="false"
+                    class="inline-flex hover:scale-110 transition-transform duration-200"
+                  >
+                    <svg viewBox="0 0 24 24" class="w-5 h-5" fill={icons[key].color}>
+                      <path d={icons[key].d} />
+                    </svg>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+  </about-page>
+</Layout>
+
+<style is:global>
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Lingue: si vede solo quella attiva (anche nelle card clonate su mobile) */
+  .ml > [lang] { display: none; }
+  about-page[data-active="en"] .ml > [lang="en"],
+  about-page[data-active="it"] .ml > [lang="it"],
+  about-page[data-active="fr"] .ml > [lang="fr"],
+  about-page[data-active="es"] .ml > [lang="es"],
+  about-page[data-active="ja"] .ml > [lang="ja"] { display: inline; }
+
+  /* Bandierine (stessa misura dell'altro sito) */
+  .flag-btn {
+    width: 22px;
+    height: 15px;
+    border-radius: 3px;
+    overflow: hidden;
+    opacity: 0.4;
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .flag-btn svg { width: 100%; height: 100%; display: block; }
+  .flag-btn:hover { opacity: 0.8; }
+  .flag-btn.is-active {
+    opacity: 1;
+    transform: scale(1.15);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--d, 0ms);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (max-width: 767px) {
+    .team-card.reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .team-card {
+    transition: box-shadow 0.4s ease, translate 0.4s ease;
+  }
+  @media (min-width: 768px) {
+    .team-card:hover {
+      translate: 0 -6px;
+      box-shadow: 0 20px 45px rgba(255, 255, 255, 0.12);
+    }
+  }
+
+  /* Team: scorrimento orizzontale, manina, niente selezione blu */
+  .team-track {
+    overscroll-behavior-x: contain;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .team-track,
+  .team-card,
+  .team-card * { cursor: pointer; }
+</style>
+
+<script>
+  import { autoScroll } from '../scripts/autoscroll.js';
+
+  class AboutPage extends HTMLElement {
+    timers = [];
+    observer = null;
+    stopScroll = null;
+
+    connectedCallback() {
+      // 1. Dissolvenza all'ingresso
+      this.observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              this.observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      this.querySelectorAll('.reveal').forEach((el) => this.observer.observe(el));
+
+      // 2. Cambio lingua con le bandierine
+      const AUTO_MS = 0; // 0 = solo al clic. Per il cambio automatico: es. 15000
+      const flags = Array.from(this.querySelectorAll('.flag-btn'));
+      const codes = flags.map((f) => f.getAttribute('data-lang'));
+      let current = 0;
+      let autoTimer = 0;
+
+      const setLang = (i) => {
+        current = i;
+        this.setAttribute('data-active', codes[i]);
+        flags.forEach((f, k) => f.classList.toggle('is-active', k === i));
+      };
+
+      const startAuto = () => {
+        clearInterval(autoTimer);
+        if (AUTO_MS > 0) {
+          autoTimer = window.setInterval(() => setLang((current + 1) % codes.length), AUTO_MS);
+          this.timers.push(autoTimer);
+        }
+      };
+
+      flags.forEach((f, i) => {
+        f.addEventListener('click', () => {
+          setLang(i);
+          startAuto();
+        });
+      });
+      startAuto();
+
+      // 3. Scorrimento automatico del team su mobile (il dito lo ferma, riparte 1s dopo il rilascio)
+      const isMobile = window.matchMedia('(max-width: 767px)').matches;
+      const track = this.querySelector('#team-track');
+      if (isMobile && track) {
+        this.stopScroll = autoScroll(track, { speed: 35, resumeMs: 1000 });
+      }
+    }
+
+    disconnectedCallback() {
+      this.timers.forEach((t) => clearTimeout(t));
+      this.timers = [];
+      if (this.observer) this.observer.disconnect();
+      if (this.stopScroll) this.stopScroll();
+    }
+  }
+
+  if (!customElements.get('about-page')) {
+    customElements.define('about-page', AboutPage);
+  }
+</script>

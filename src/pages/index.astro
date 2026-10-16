@@ -1,0 +1,190 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const cast = [
+  { first: 'Giacomo', last: 'Bartoccioli' },
+  { first: 'Diletta', last: 'Cappannini' },
+  { first: 'Gabriele', last: 'Nardi' },
+  { first: 'Jacopo', last: 'Vitali' },
+  { first: 'Guglielmo', last: 'Sergio' },
+  { first: 'Nicole', last: 'Vincenti' },
+];
+
+const mainVideo = 'ztNIJ_Evy7I';
+const coProductions = ['rqSI7KSt0oA', 'gHr7xGiuGao'];
+const events = ['8tZaO7tuMo4'];
+
+const embed = (id: string) => `https://www.youtube.com/embed/${id}?rel=0`;
+const allow =
+  'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+---
+
+<Layout>
+  <!-- Sfondo sfocato fisso (public/hero-bg.jpg) -->
+  <div
+    class="fixed inset-0 -z-10 bg-black bg-cover bg-center"
+    style="background-image: url('/hero-bg.jpg');"
+  >
+    <div class="absolute inset-0 bg-black/55 backdrop-blur-md"></div>
+  </div>
+
+  <div class="pt-36 md:pt-56 pb-6 md:pb-8 px-5 md:px-10 flex flex-col items-center text-center text-white">
+
+    <!-- Righe copyright: su mobile a capo prima di "is the production..." -->
+    <p class="font-['Helvetica'] font-bold uppercase text-[11px] md:text-base leading-relaxed max-w-4xl">
+      <span class="block md:inline">© Cicala Corporation</span>{' '}
+      <span class="block md:inline">is the production and distribution company.</span>
+      <span class="hidden md:block"></span>
+      <span class="block md:inline">"2K Alla Chiave" is the debut film.</span>
+    </p>
+
+    <!-- TITOLO: immagine 2K ALLA CHIAVE -->
+    <img
+      src="/2kallachiave.png"
+      alt="2K Alla Chiave"
+      class="mt-6 md:mt-10 w-[92vw] max-w-[900px] h-auto"
+    />
+
+    <!-- CAST -->
+    <ul class="font-benguiat uppercase mt-8 md:mt-14 space-y-2 md:space-y-5">
+      {cast.map((p) => (
+        <li>
+          <span class="block text-xs md:text-sm tracking-wide leading-tight">{p.first}</span>
+          <span class="block text-xl md:text-3xl tracking-wide leading-tight">{p.last}</span>
+        </li>
+      ))}
+    </ul>
+
+    <!-- COMING IN 2026 -->
+    <p class="font-['Helvetica'] font-bold uppercase mt-12 md:mt-20 tracking-[0.12em] text-2xl md:text-4xl">
+      Coming in 2026
+    </p>
+
+    <!-- VIDEO PRINCIPALE -->
+    <div class="w-full max-w-4xl mt-8 md:mt-10 aspect-video">
+      <iframe
+        src={embed(mainVideo)}
+        title="2K Alla Chiave"
+        class="w-full h-full rounded-sm"
+        frameborder="0"
+        allow={allow}
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
+    </div>
+
+    <!-- CO-PRODUCTIONS -->
+    <h2 class="font-['Helvetica'] font-bold uppercase mt-16 md:mt-24 mb-6 tracking-[0.12em] text-2xl md:text-4xl">
+      Co-Productions
+    </h2>
+
+    <!-- Mobile: copertine a scorrimento (tocca per avviare il video) -->
+    <div class="md:hidden w-[100vw]">
+      <div
+        id="coprod-track"
+        class="flex gap-4 overflow-x-auto px-5 hide-scrollbar"
+        style="overscroll-behavior-x: contain;"
+      >
+        {coProductions.map((id) => (
+          <div
+            class="yt-card relative flex-none w-[82vw] aspect-video rounded-sm bg-black bg-cover bg-center cursor-pointer"
+            data-id={id}
+            style={`background-image:url(https://i.ytimg.com/vi/${id}/hqdefault.jpg)`}
+          >
+            <span class="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <svg viewBox="0 0 68 48" class="w-16 h-11 drop-shadow-lg">
+                <rect width="68" height="48" rx="12" fill="#FF0000" />
+                <path d="M27 14v20l18-10z" fill="#fff" />
+              </svg>
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Desktop: due lettori affiancati -->
+    <div class="hidden md:grid grid-cols-2 gap-8 w-full max-w-6xl">
+      {coProductions.map((id) => (
+        <div class="aspect-video">
+          <iframe
+            src={embed(id)}
+            title="Co-production"
+            class="w-full h-full rounded-sm"
+            frameborder="0"
+            allow={allow}
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+      ))}
+    </div>
+
+    <!-- EVENTS -->
+    <h2 class="font-['Helvetica'] font-bold uppercase mt-16 md:mt-24 mb-6 tracking-[0.12em] text-2xl md:text-4xl">
+      Events
+    </h2>
+    <div class="w-full max-w-4xl">
+      {events.map((id) => (
+        <div class="aspect-video">
+          <iframe
+            src={embed(id)}
+            title="Events"
+            class="w-full h-full rounded-sm"
+            frameborder="0"
+            allow={allow}
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</Layout>
+
+<style is:global>
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script>
+  import { autoScroll } from '../scripts/autoscroll.js';
+
+  function setupCoProductions() {
+    const track = document.getElementById('coprod-track');
+    if (!track || track.dataset.init) return;
+    track.dataset.init = 'true';
+
+    // Tocco su una copertina: avvia il video al suo posto
+    track.addEventListener('click', (e) => {
+      const card = e.target.closest('.yt-card');
+      if (!card || card.classList.contains('is-playing')) return;
+      const id = card.getAttribute('data-id');
+      card.classList.add('is-playing');
+      card.style.backgroundImage = 'none';
+      card.innerHTML =
+        '<iframe src="https://www.youtube.com/embed/' + id +
+        '?autoplay=1&playsinline=1&rel=0" title="Co-production" ' +
+        'class="w-full h-full rounded-sm" frameborder="0" ' +
+        'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
+        'allowfullscreen></iframe>';
+    });
+
+    // Scorrimento automatico solo su mobile; si ferma mentre un video è in riproduzione
+    if (window.matchMedia('(max-width: 767px)').matches) {
+        autoScroll(track, {
+        speed: 35,
+        resumeMs: 1000,
+        isBlocked: () => !!track.querySelector('.is-playing'),
+      });
+    }
+  }
+
+  setupCoProductions();
+  document.addEventListener('astro:page-load', setupCoProductions);
+</script>

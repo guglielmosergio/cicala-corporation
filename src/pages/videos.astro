@@ -1,0 +1,135 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Indirizzo del sito vecchio, pagina Horizontal
+const OLD_SITE_URL = 'https://guglielmosergio.it/horizontal-16-9';
+
+const base = 'background=1&autoplay=1&loop=1&byline=0&title=0';
+const desktopSrc = `https://player.vimeo.com/video/788816344?${base}`;
+const mobileSrc = `https://player.vimeo.com/video/1233389078?h=e1222bab3a&${base}`;
+---
+
+<Layout>
+  <section class="h-[100dvh] w-full flex flex-col bg-black pt-32 md:pt-52">
+
+    <!-- Scritta sopra il video -->
+    <a
+      href={OLD_SITE_URL}
+      class="block text-center text-white font-['Helvetica'] font-bold uppercase text-sm md:text-lg tracking-[0.15em] px-6 pb-4 md:pb-5 hover:opacity-70 transition-opacity"
+    >
+      Click here to watch recent works
+    </a>
+
+    <!-- Video (su mobile un tocco porta alla pagina Horizontal) -->
+    <div class="relative flex-1 min-h-0 w-full overflow-hidden">
+      <div
+        id="hero-container"
+        data-src-desktop={desktopSrc}
+        data-src-mobile={mobileSrc}
+        class="absolute inset-0 flex justify-center items-center overflow-hidden bg-black"
+      ></div>
+
+      <a
+        href={OLD_SITE_URL}
+        aria-label="Watch recent works"
+        class="md:hidden absolute inset-0 z-10"
+      ></a>
+    </div>
+
+  </section>
+</Layout>
+
+<script is:inline src="https://player.vimeo.com/api/player.js"></script>
+
+<script>
+  function setupHeroVideo() {
+    const container = document.getElementById('hero-container');
+    if (!container || container.dataset.initialized) return;
+    container.dataset.initialized = 'true';
+
+    const MAX_VOLUME = 0.4; // 40%
+    const mq = window.matchMedia('(max-width: 767px)');
+    let player = null;
+    let iframe = null;
+    let currentSrc = '';
+    let audioOn = false; // false = muto, true = audio al 40%
+
+    const applyVolume = () => {
+      if (!player) return;
+      player.setVolume(audioOn ? MAX_VOLUME : 0).catch((error) => {
+        console.warn("Impossibile cambiare l'audio.", error);
+      });
+    };
+
+    // Mobile: ingrandisce il lettore fino a riempire tutto lo spazio (niente bordi neri)
+    const fit = async () => {
+      if (!player || !iframe) return;
+      if (!mq.matches) {
+        iframe.removeAttribute('style');
+        return;
+      }
+      try {
+        const [vw, vh] = await Promise.all([player.getVideoWidth(), player.getVideoHeight()]);
+        const ar = vw / vh;
+        const cw = container.clientWidth;
+        const ch = container.clientHeight;
+        const w = Math.max(cw, ch * ar);
+        const h = Math.max(ch, cw / ar);
+        Object.assign(iframe.style, {
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          width: w + 'px',
+          height: h + 'px',
+          maxWidth: 'none',
+          transform: 'translate(-50%, -50%)',
+        });
+      } catch (e) {}
+    };
+
+    const loadVideo = () => {
+      const src = mq.matches
+        ? container.dataset.srcMobile
+        : container.dataset.srcDesktop;
+
+      if (src === currentSrc) {
+        fit();
+        return;
+      }
+      currentSrc = src;
+
+      if (player) {
+        player.destroy().catch(() => {});
+        player = null;
+      }
+      container.innerHTML = '';
+
+      iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.className = 'w-full h-full pointer-events-none';
+      container.appendChild(iframe);
+
+      player = new window.Vimeo.Player(iframe);
+      player.ready().then(fit).catch(() => {});
+      if (audioOn) applyVolume();
+    };
+
+    // Solo desktop: ogni click alterna audio acceso (40%) / spento
+    window.addEventListener('click', (e) => {
+      if (mq.matches) return;
+      if (e.target.closest('a, button, header, #mobile-menu, footer')) return;
+      audioOn = !audioOn;
+      applyVolume();
+    });
+
+    loadVideo();
+    mq.addEventListener('change', loadVideo);
+    window.addEventListener('resize', fit);
+  }
+
+  setupHeroVideo();
+  document.addEventListener('astro:page-load', setupHeroVideo);
+</script>
