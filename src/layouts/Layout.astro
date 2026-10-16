@@ -14,12 +14,34 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 
 const {
   title = 'Cicala Corporation: Digital Cinema Studio',
   description = 'Production & distribution company. In-house cinema tech, tailored creative vision. We deliver screen-ready quality. cicalacorporation@gmail.com',
+  image = '/og-image.jpg',
 } = Astro.props;
+
+const siteUrl = 'https://cicalacorporation.com';
+const canonical = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = new URL(image, siteUrl).href;
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Cicala Corporation',
+  url: siteUrl,
+  email: 'cicalacorporation@gmail.com',
+  telephone: '+393474579349',
+  description,
+  sameAs: [
+    'https://www.youtube.com/@cicalacorporation',
+    'https://vimeo.com/cicalacorporation',
+    'https://www.instagram.com/cicala_corporation',
+    'https://www.tiktok.com/@cicalacorporation',
+  ],
+};
 ---
 
 <!DOCTYPE html>
@@ -28,8 +50,48 @@ const {
     <meta name="view-transitions" content="same-origin">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="author" content="Cicala Corporation" />
+    {Astro.url.pathname.startsWith('/404') && <meta name="robots" content="noindex" />}
+
+    <!-- Favicon (se è un JPG: type="image/jpeg" e href="/favicon.jpg") -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+
+    <!-- Anteprima social (WhatsApp, Facebook, LinkedIn...) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cicala Corporation" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Dati strutturati -->
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+
+    <!-- Font di riserva simile a ITC Benguiat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet" />
+    <style is:global>
+      @font-face {
+        font-family: 'ITC Benguiat';
+        src: url('/fonts/itc-benguiat.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      .font-benguiat {
+        font-family: 'ITC Benguiat', 'Yeseva One', Georgia, 'Times New Roman', serif !important;
+      }
+    </style>
   </head>
   <body class="bg-black">
 
