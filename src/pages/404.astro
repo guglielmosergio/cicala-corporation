@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Page not found | Cicala Corporation"
+  description="The page you are looking for does not exist."
+>
+  <section class="nf-wrap">
+    <p class="nf-code">404</p>
+
+    <h1 class="nf-title">Page not found</h1>
+
+    <p class="nf-text">
+      The page you are looking for does not exist<br class="nf-br" /> or has been moved.
+    </p>
+
+    <div class="nf-buttons">
+      <a href="/" class="nf-btn nf-btn-solid">Back to home</a>
+      <a href="/videos" class="nf-btn nf-btn-outline">Watch recent works</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .nf-wrap {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10rem 1.5rem 2.5rem;
+    background: #000;
+    color: #fff;
+    font-family: 'Helvetica', Arial, sans-serif;
+  }
+  .nf-code {
+    margin: 0;
+    font-weight: 700;
+    color: #cc0000;
+    font-size: clamp(5rem, 22vw, 8rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .nf-title {
+    margin: 1rem 0 0;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: clamp(1.25rem, 5vw, 1.875rem);
+  }
+  .nf-text {
+    margin: 1rem 0 0;
+    padding: 0 1rem;
+    color: #a3a3a3;
+    font-size: 0.95rem;
+  }
+  .nf-br { display: inline; }
+  .nf-buttons {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .nf-btn {
+    min-height: 44px;
+    padding: 0 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .nf-btn-solid { background: #fff; color: #000; }
+  .nf-btn-solid:hover { background: #d4d4d4; }
+  .nf-btn-outline { border: 1px solid rgba(255, 255, 255, 0.3); color: #fff; }
+  .nf-btn-outline:hover { background: #fff; color: #000; }
+
+  @media (min-width: 768px) {
+    .nf-wrap { padding-top: 14rem; }
+    .nf-text { font-size: 1rem; }
+    .nf-br { display: none; }
+    .nf-buttons { flex-direction: row; gap: 1rem; }
+  }
+</style>

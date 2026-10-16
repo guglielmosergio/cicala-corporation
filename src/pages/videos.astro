@@ -9,8 +9,11 @@ const desktopSrc = `https://player.vimeo.com/video/788816344?${base}`;
 const mobileSrc = `https://player.vimeo.com/video/1233389078?h=e1222bab3a&${base}`;
 ---
 
-<Layout>
-  <section class="h-[100dvh] w-full flex flex-col bg-black pt-32 md:pt-52">
+<Layout
+  title="Videos | Cicala Corporation"
+  description="Explore our most recent work for our clients. We deliver screen-ready content with cinematic quality."
+>
+    <section class="h-[100dvh] md:h-auto w-full flex flex-col bg-black pt-32 md:pt-52 md:pb-10">
 
     <!-- Scritta sopra il video -->
     <a
@@ -21,7 +24,7 @@ const mobileSrc = `https://player.vimeo.com/video/1233389078?h=e1222bab3a&${base
     </a>
 
     <!-- Video (su mobile un tocco porta alla pagina Horizontal) -->
-    <div class="relative flex-1 min-h-0 w-full overflow-hidden">
+       <div class="relative flex-1 min-h-0 md:flex-none md:h-[56.25vw] w-full overflow-hidden">
       <div
         id="hero-container"
         data-src-desktop={desktopSrc}
@@ -61,13 +64,9 @@ const mobileSrc = `https://player.vimeo.com/video/1233389078?h=e1222bab3a&${base
       });
     };
 
-    // Mobile: ingrandisce il lettore fino a riempire tutto lo spazio (niente bordi neri)
+    // Ingrandisce il lettore fino a riempire tutto lo spazio (niente bordi neri), su mobile e desktop
     const fit = async () => {
       if (!player || !iframe) return;
-      if (!mq.matches) {
-        iframe.removeAttribute('style');
-        return;
-      }
       try {
         const [vw, vh] = await Promise.all([player.getVideoWidth(), player.getVideoHeight()]);
         const ar = vw / vh;

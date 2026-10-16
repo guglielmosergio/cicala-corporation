@@ -10,6 +10,16 @@ const links = [
 ];
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Cicala Corporation: Digital Cinema Studio',
+  description = 'Production & distribution company. In-house cinema tech, tailored creative vision. We deliver screen-ready quality. cicalacorporation@gmail.com',
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -18,8 +28,8 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     <meta name="view-transitions" content="same-origin">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cicala Corporation: Digital Cinema Studio</title>
-    <meta name="description" content="Production and Distribution Company based in Perugia, Rome and Bari, soon in Geneve." />
+    <title>{title}</title>
+    <meta name="description" content={description} />
   </head>
   <body class="bg-black">
 
@@ -99,7 +109,12 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     </main>
 
     <!-- INIZIO FOOTER / FILIGRANA CONTATTI -->
-    <footer class="site-footer w-full bg-black pt-6 md:pt-8 pb-12 flex flex-col items-center justify-center relative z-0 mt-auto font-['Helvetica']">
+    <footer
+      class:list={[
+        "site-footer w-full bg-black pb-12 flex flex-col items-center justify-center relative z-0 mt-auto font-['Helvetica']",
+        path === '/about' ? 'pt-2 md:pt-3' : 'pt-6 md:pt-8',
+      ]}
+    >
 
       <!-- Email -->
       <a
