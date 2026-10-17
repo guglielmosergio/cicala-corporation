@@ -21,7 +21,7 @@ const allow =
 
 <Layout>
   <!-- ===== APERTURA CINEMA ===== -->
-    <div class="intro" aria-hidden="true">
+  <div class="intro" aria-hidden="true">
     <div class="intro-top"></div>
     <div class="intro-bottom"></div>
     <div class="intro-glow"></div>
@@ -88,6 +88,7 @@ const allow =
         loading="lazy"
       ></iframe>
     </div>
+
     <!-- STAY UPDATED ON INSTAGRAM -->
     <a
       href="https://www.instagram.com/2kallachiave"
@@ -191,16 +192,16 @@ const allow =
   }
   .hide-scrollbar::-webkit-scrollbar { display: none; }
 
-  /* ---------- Apertura cinema ---------- */
-  .intro { position: fixed; inset: 0; z-index: 45; pointer-events: none; animation: introDone 0s 3.1s forwards; }
+  /* ---------- Apertura cinema (parte solo con html.home-go) ---------- */
+  .intro { position: fixed; inset: 0; z-index: 45; pointer-events: none; }
+  html.home-go .intro { animation: introDone 0s 3.1s forwards; }
+
   .intro-top, .intro-bottom {
     position: absolute; left: 0; right: 0; height: calc(50% + 140px);
-    animation-duration: 1.9s; animation-delay: 0.95s; animation-fill-mode: forwards;
-    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
     will-change: transform, opacity;
   }
   .intro-top {
-    top: 0; animation-name: openTop;
+    top: 0;
     background: linear-gradient(to bottom,
       #000 0, #000 calc(100% - 140px),
       rgba(0,0,0,.92) calc(100% - 112px), rgba(0,0,0,.72) calc(100% - 84px),
@@ -208,26 +209,30 @@ const allow =
       rgba(0,0,0,0) 100%);
   }
   .intro-bottom {
-    bottom: 0; animation-name: openBottom;
+    bottom: 0;
     background: linear-gradient(to top,
       #000 0, #000 calc(100% - 140px),
       rgba(0,0,0,.92) calc(100% - 112px), rgba(0,0,0,.72) calc(100% - 84px),
       rgba(0,0,0,.45) calc(100% - 56px), rgba(0,0,0,.2) calc(100% - 28px),
       rgba(0,0,0,0) 100%);
   }
-    .intro-line {
+  html.home-go .intro-top, html.home-go .intro-bottom {
+    animation-duration: 1.9s; animation-delay: 0.95s; animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  html.home-go .intro-top { animation-name: openTop; }
+  html.home-go .intro-bottom { animation-name: openBottom; }
+
+  .intro-line {
     position: absolute; left: 50%; top: 50%; height: 2px; width: 0;
     transform: translate(-50%, -50%);
     background: linear-gradient(90deg, transparent, #ff3a14 18%, #ff8a50 50%, #ff3a14 82%, transparent);
     box-shadow: 0 0 18px 2px rgba(255, 60, 30, 0.8);
+  }
+  html.home-go .intro-line {
     animation:
       lineGrow 0.9s 0.1s cubic-bezier(0.22, 1, 0.36, 1) forwards,
       lineFade 1.1s 0.85s cubic-bezier(0.4, 0, 0.6, 1) forwards;
-  }
-  @keyframes lineGrow { to { width: min(70vw, 700px); } }
-  @keyframes lineFade {
-    0%   { opacity: 1; height: 2px;  width: min(70vw, 700px); filter: blur(0); }
-    100% { opacity: 0; height: 14px; width: 120vw;            filter: blur(8px); }
   }
 
   /* Luce che trabocca dalla fessura mentre il sipario si apre */
@@ -237,7 +242,13 @@ const allow =
     background: radial-gradient(ellipse 70% 50% at 50% 50%,
       rgba(255, 110, 50, 0.55) 0%, rgba(255, 50, 20, 0.22) 38%, transparent 72%);
     filter: blur(14px); mix-blend-mode: screen; will-change: transform, opacity;
-    animation: glowOpen 2s 0.8s cubic-bezier(0.45, 0, 0.25, 1) forwards;
+  }
+  html.home-go .intro-glow { animation: glowOpen 2s 0.8s cubic-bezier(0.45, 0, 0.25, 1) forwards; }
+
+  @keyframes lineGrow { to { width: min(70vw, 700px); } }
+  @keyframes lineFade {
+    0%   { opacity: 1; height: 2px;  width: min(70vw, 700px); filter: blur(0); }
+    100% { opacity: 0; height: 14px; width: 120vw;            filter: blur(8px); }
   }
   @keyframes glowOpen {
     0%   { opacity: 0;   transform: scaleY(0.004); }
@@ -268,11 +279,6 @@ const allow =
   @keyframes driftC { to { transform: translate3d(10vw, -16vh, 0) scale(1.2); } }
 
   #embers { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .cursor-glow {
-    position: absolute; left: 0; top: 0; width: 520px; height: 520px; margin: -260px 0 0 -260px;
-    background: radial-gradient(circle, rgba(255, 90, 40, 0.22), transparent 65%);
-    mix-blend-mode: screen; opacity: 0; transition: opacity 0.6s ease; will-change: transform;
-  }
   .vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 35%, rgba(0, 0, 0, 0.85) 100%); }
   .grain {
     position: absolute; inset: -50%; opacity: 0.09; pointer-events: none;
@@ -285,8 +291,8 @@ const allow =
   }
 
   /* ---------- Titolo ---------- */
-  .title-img {
-    opacity: 0; filter: blur(22px); transform: scale(1.12);
+  .title-img { opacity: 0; filter: blur(22px); transform: scale(1.12); }
+  html.home-go .title-img {
     animation: titleIn 2s 1.7s cubic-bezier(0.22, 1, 0.36, 1) forwards, titleGlow 4.5s 3.7s ease-in-out infinite;
   }
   @keyframes titleIn { to { opacity: 1; filter: blur(0) drop-shadow(0 0 14px rgba(255, 255, 255, 0.35)); transform: scale(1); } }
@@ -317,7 +323,8 @@ const allow =
     .rv { opacity: 1; transform: none; filter: none; transition: none; }
     .coming-line { width: min(60vw, 320px); transition: none; }
   }
-    /* ---------- Sfumatura sfondo → footer nero (solo Home) ---------- */
+
+  /* ---------- Sfumatura sfondo → footer nero (solo Home) ---------- */
   .site-footer {
     background: linear-gradient(to bottom,
       rgba(0, 0, 0, 0) 0,
@@ -326,7 +333,7 @@ const allow =
       rgba(0, 0, 0, 0.92) 170px,
       #000 230px) !important;
   }
-  
+
   /* ---------- Link Instagram sotto il teaser ---------- */
   .ig-link { color: #fff; opacity: 0; transition: opacity 1s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1), filter 1s ease; }
   .ig-link.in { opacity: 0.85; }
@@ -339,6 +346,23 @@ const allow =
   import { autoScroll } from '../scripts/autoscroll.js';
 
   function setupHome() {
+    // ---------- Via alle animazioni: font, titolo e pagina pronti + due fotogrammi disegnati ----------
+    const root = document.documentElement;
+    if (!root.dataset.goPending) {
+      root.dataset.goPending = 'true';
+      const img = document.querySelector('.title-img') as HTMLImageElement | null;
+      Promise.all([
+        document.fonts ? document.fonts.ready : Promise.resolve(),
+        img && img.decode ? img.decode().catch(() => {}) : Promise.resolve(),
+        new Promise((r) =>
+          document.readyState === 'complete' ? r(null) : window.addEventListener('load', () => r(null), { once: true })
+        ),
+      ]).then(() =>
+        requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add('home-go')))
+      );
+      setTimeout(() => root.classList.add('home-go'), 4000); // sicurezza
+    }
+
     // ---------- Comparsa allo scroll ----------
     const items = document.querySelectorAll('.rv');
     const io = new IntersectionObserver(
@@ -352,7 +376,13 @@ const allow =
       },
       { threshold: 0.15, rootMargin: '0px 0px -6% 0px' }
     );
-    items.forEach((el) => io.observe(el));
+    const startObserving = () => items.forEach((el) => io.observe(el));
+    if (root.classList.contains('home-go')) startObserving();
+    else {
+      const t = setInterval(() => {
+        if (root.classList.contains('home-go')) { clearInterval(t); startObserving(); }
+      }, 100);
+    }
 
     // ---------- Braci ----------
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -477,32 +507,6 @@ const allow =
         if (!document.hidden) { last = performance.now(); raf = requestAnimationFrame(frame); }
       });
       raf = requestAnimationFrame(frame);
-    }
-
-    // ---------- Alone sul mouse + parallax (solo desktop) ----------
-    const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const glow = document.getElementById('cursor-glow');
-    const bg = document.querySelector('.stage-img') as HTMLElement | null;
-    if (fine && !reduce && glow && !glow.dataset.init) {
-      glow.dataset.init = 'true';
-      let tx = 0, ty = 0, cx = 0, cy = 0, sy = 0, ticking = false;
-      const update = () => {
-        cx += (tx - cx) * 0.18;
-        cy += (ty - cy) * 0.18;
-        glow.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
-        if (bg) bg.style.marginTop = `${-sy * 0.05}px`;
-        if (Math.abs(tx - cx) > 0.5 || Math.abs(ty - cy) > 0.5) requestAnimationFrame(update);
-        else ticking = false;
-      };
-      window.addEventListener('mousemove', (e) => {
-        tx = e.clientX; ty = e.clientY;
-        glow.style.opacity = '1';
-        if (!ticking) { ticking = true; requestAnimationFrame(update); }
-      });
-      window.addEventListener('scroll', () => {
-        sy = window.scrollY;
-        if (!ticking) { ticking = true; requestAnimationFrame(update); }
-      }, { passive: true });
     }
 
     // ---------- Co-Productions mobile ----------
