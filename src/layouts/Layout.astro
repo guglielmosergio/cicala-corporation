@@ -91,9 +91,13 @@ const orgSchema = {
       .font-benguiat {
         font-family: 'ITC Benguiat', 'Yeseva One', Georgia, 'Times New Roman', serif !important;
       }
-            /* Sfondo nero anche oltre la fine della pagina (rimbalzo di scroll) */
+      /* Sfondo nero oltre la fine della pagina (rimbalzo di scroll) */
       html {
         background: #000;
+      }
+      /* Il body resta trasparente, così lo sfondo animato della Home si vede */
+      body {
+        background: transparent !important;
       }
       html, body {
         overscroll-behavior-y: none;
