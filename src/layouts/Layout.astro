@@ -50,7 +50,7 @@ const orgSchema = {
     <meta name="view-transitions" content="same-origin">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <meta name="theme-color" content="#000000" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -90,6 +90,13 @@ const orgSchema = {
       }
       .font-benguiat {
         font-family: 'ITC Benguiat', 'Yeseva One', Georgia, 'Times New Roman', serif !important;
+      }
+            /* Sfondo nero anche oltre la fine della pagina (rimbalzo di scroll) */
+      html {
+        background: #000;
+      }
+      html, body {
+        overscroll-behavior-y: none;
       }
     </style>
   </head>
